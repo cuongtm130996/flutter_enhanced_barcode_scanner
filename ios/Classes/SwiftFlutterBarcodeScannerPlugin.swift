@@ -18,6 +18,7 @@ public class SwiftFlutterBarcodeScannerPlugin: NSObject, FlutterPlugin, ScanBarc
     public static var lineColor:String=""
     public static var cancelButtonText:String=""
     public static var isShowFlashIcon:Bool=false
+    public static var isFrontCamera:Bool=false
     var pendingResult:FlutterResult!
     public static var isContinuousScan:Bool=false
     static var barcodeStream:FlutterEventSink?=nil
@@ -76,6 +77,11 @@ public class SwiftFlutterBarcodeScannerPlugin: NSObject, FlutterPlugin, ScanBarc
             SwiftFlutterBarcodeScannerPlugin.isContinuousScan = isContinuousScan
         }else {
             SwiftFlutterBarcodeScannerPlugin.isContinuousScan = false
+        }
+        if let isFrontCamera = args["isFrontCamera"] as? Bool{
+            SwiftFlutterBarcodeScannerPlugin.isFrontCamera = isFrontCamera
+        }else {
+            SwiftFlutterBarcodeScannerPlugin.isFrontCamera = false
         }
         
         if let scanModeReceived = args["scanMode"] as? Int {
@@ -258,7 +264,7 @@ class BarcodeScannerViewController: UIViewController {
     // Inititlize components
     func initBarcodeComponents(){
         
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: SwiftFlutterBarcodeScannerPlugin.isFrontCamera ? .front : .back)
         // Get the back-facing camera for capturing videos
         guard let captureDevice = deviceDiscoverySession.devices.first else {
             print("Failed to get the camera device")
