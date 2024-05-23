@@ -27,7 +27,7 @@ class FlutterBarcodeScanner {
   /// On iOS, completes with `-2` if the camera is not available, for instance,
   /// on simulator.
   static Future<String> scanBarcode(String lineColor, String cancelButtonText,
-      bool isShowFlashIcon, ScanMode scanMode) async {
+      bool isShowFlashIcon, ScanMode scanMode, bool? isFrontCamera) async {
     if (cancelButtonText.isEmpty) {
       cancelButtonText = 'Cancel';
     }
@@ -38,7 +38,8 @@ class FlutterBarcodeScanner {
       'cancelButtonText': cancelButtonText,
       'isShowFlashIcon': isShowFlashIcon,
       'isContinuousScan': false,
-      'scanMode': scanMode.index
+      'scanMode': scanMode.index,
+      'isFrontCamera': isFrontCamera ?? false
     };
 
     /// Get barcode scan result

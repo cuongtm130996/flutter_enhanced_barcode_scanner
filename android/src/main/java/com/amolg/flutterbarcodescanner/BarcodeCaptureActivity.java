@@ -139,7 +139,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
             if (rc == PackageManager.PERMISSION_GRANTED) {
-                createCameraSource(autoFocus, useFlash, CameraSource.CAMERA_FACING_BACK);
+                createCameraSource(autoFocus, useFlash, FlutterBarcodeScannerPlugin.isFrontCamera ? CameraSource.CAMERA_FACING_FRONT : CameraSource.CAMERA_FACING_BACK);
             } else {
                 requestCameraPermission();
             }
@@ -307,7 +307,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             // we have permission, so create the camerasource
             boolean autoFocus = true;
             boolean useFlash = false;
-            createCameraSource(autoFocus, useFlash, CameraSource.CAMERA_FACING_BACK);
+            createCameraSource(autoFocus, useFlash, FlutterBarcodeScannerPlugin.isFrontCamera ? CameraSource.CAMERA_FACING_FRONT : CameraSource.CAMERA_FACING_BACK);
             return;
         }
 
