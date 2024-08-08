@@ -24,6 +24,7 @@ allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    namespace 'com.amolg.flutterbarcodescanner'
     compileSdkVersion 31
 
     defaultConfig {
